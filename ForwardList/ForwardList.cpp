@@ -23,12 +23,15 @@ public:
     {
         std::cout << "EDestructor:\t" << this << std::endl;
     }
+  
     friend class ForwardList;
 };
 
 class ForwardList //Forward-односвязный,однонаправленный
 {
+protected:
     Element* Head; //Голова списка -содержит указатель на нулевой элемент списка
+    unsigned int size=0;
 
 public:
 
@@ -81,28 +84,70 @@ public:
 
     }
 
+   
+
+    void insert(int Data, int index) //вставляет элемент в список по заданному индексу
+    {
+
+        if (index == 0)
+        {
+            push_front(Data);
+        }
+        else
+        {
+            Element* previous = this->Head;
+
+            for (int i = 0; i < index - 1; i++)
+            {
+                previous = previous->pNext;
+            }
+
+            Element* newNode = new Element(Data, previous->pNext);
+            previous->pNext = newNode;
+
+            size++;
+        }
+    }
+
+    void erase(int index) 				//удаляет элемент из списка по заданному индекс
+    {
+        if (index == 0)
+        {
+            pop_front();
+        }
+        else
+        {
+            Element* previous = this->Head;
+
+
+            for (int i = 0; i < index - 1; i++)
+            {
+                previous = previous->pNext;
+            }
+
+            Element* toDelete = previous->pNext;
+            previous->pNext = toDelete->pNext;
+            
+            delete toDelete;
+        
+            size--;
+        }
+    }
+
     void pop_back()//удаляет элемент c конца списка
     {
-       
-    
-        //2)Доходим до конца списка:
         Element* Temp = Head;
-        while (Temp->pNext)
+        if (Head == nullptr)return;
+        if (Head->pNext == nullptr)return pop_front();
+
+        while (Temp->pNext->pNext)
         {
             Temp = Temp->pNext;
         }
-        //3)Добавляем элемент в конец списка:
-        delete Temp;
-    }
-
-    void insert(int Data, int Index) //вставляет элемент в список по заданному индексу
-    {
-
-    }
-
-    void erase(int Index) 				//удаляет элемент из списка по заданному индекс
-    {
-
+      
+        delete  Temp->pNext;
+        Temp->pNext = nullptr;
+        size--;
     }
 
     void print()const
@@ -129,6 +174,7 @@ int main()
     int n;
     std::cout << "Введите размер списка"; std::cin >> n;
     ForwardList list;
+    std::cout << "Вывод списка" << std::endl;
 
     for (int i = 0; i < n; i++)
     {
@@ -138,15 +184,44 @@ int main()
     list.print();
 
     std::cout << line << std::endl;
-    list.pop_front();
-    list.pop_back();
+    std::cout << "Удаление первого элемента из списка" << std::endl;
 
+    list.pop_front();
     for (int i = 0; i < n; i++)
     {
         
     }
     list.print();
 
+  
+    std::cout << line << std::endl;
+    std::cout << "Удаление элемента по индексу" << std::endl;
+    list.erase(3);
+    for (int i = 0; i < n; i++)
+    {
+
+    }
+    list.print();
+
+    std::cout << line << std::endl;
+    std::cout << "Добавление элемента по индексу" << std::endl;
+ 
+    list.insert(99,3);
+    for (int i = 0; i < n; i++)
+    {
+
+    }
+    list.print();
+
+
+    std::cout << line << std::endl;
+    std::cout << "Удаление последнего элемента из списка" << std::endl;
+    list.pop_back();
+    for (int i = 0; i < n; i++)
+    {
+
+    }
+    list.print();
 
     /*list.push_back(123);
     list.print();*/
