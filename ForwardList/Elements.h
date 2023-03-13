@@ -6,21 +6,16 @@
 class Element
 {
 private:
+
         int Data;        //Значение элемента
         Element* pNext; //адрес следующего элемента
 
-    public:
+ public:
 
-        Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext)
-        {
-            std::cout << "Econstructor:\t" << this << std::endl;
-        }
-        ~Element()
-        {
-            std::cout << "EDestructor:\t" << this << std::endl;
-        }
+     Element(int Data, Element* pNext = nullptr) ;  
+     ~Element();
 
-        friend class ForwardList;
+     friend class ForwardList;
     
 };
 
