@@ -28,9 +28,55 @@ public:
 
     }
     friend class ForwardList;
+    friend class Iterator;
 };
 
+
 int Element::count = 0; //Инициализируем статическую переменную,объявленную в классе "Element"
+
+class Iterator
+{
+    Element* Temp;
+
+public:
+    Iterator(Element* Temp = nullptr) :Temp(Temp)
+    {
+        std::cout << "IConstuctor:\t" << this << std::endl;
+
+    }
+    ~Iterator()
+    {
+        std::cout << "IDestuctor:\t" << this << std::endl;
+    }
+
+    Iterator& operator++()
+    {
+        Temp = Temp->pNext;
+        return *this;
+    }
+
+    bool operator ==(const Iterator& other)const
+    {
+
+        return this->Temp == other.Temp;
+
+    }
+
+    bool operator !=(const Iterator& other)const
+    {
+
+        return this->Temp == other.Temp;
+
+    }
+    int& operator * ()
+    {
+        return Temp->Data;
+    }
+
+
+
+
+};
 
 class ForwardList
 {
@@ -38,15 +84,35 @@ class ForwardList
     int size;
 
 public:
+    Iterator begin()
+    {
+        return Head;
+    }
+
+    Iterator end()
+    {
+        return nullptr;
+    }
 
     ForwardList()
     {
         Head = nullptr;//Если список пуст,то его Голова указывает на 0
         size = 0;
         std::cout << "LConstuctor:\t" << this << std::endl;
+
+    }
+    ForwardList(const std::initializer_list<int> &il) :ForwardList()
+    {
+        //il-initializer_list
+        std::cout << typeid(il.begin()).name() << std::endl;
+        for (int const* it = il.begin(); it != il.end(); it++)
+        {
+            push_back(*it);
+        }
     }
     ~ForwardList()
     {
+        while (Head)pop_front();
         std::cout << "LDestuctor:\t" << this <<std::endl;
     }
     void push_front(int Data)
@@ -75,7 +141,7 @@ public:
         while (Temp->pNext)
             Temp = Temp->pNext;
         //3) Добавляем элемент в конец списка:
-        Temp->pNext = New;
+        Temp->pNext = new Element(Data);
         size++;
     }
 
@@ -90,11 +156,11 @@ public:
 
         //2) Доходим до нужного элемента
         Element* Temp = Head;
-        for (int i = 0; i < index - 1; i++)Temp = Temp->pNext;
+        for (int i = 0; i < index - 1; i++)if (Temp->pNext)Temp = Temp->pNext;
 
         //3) Вставляем новый элемент в список:
-        New->pNext = Temp->pNext;
-        Temp->pNext = New;
+     
+        Temp->pNext = new Element(Data,Temp->pNext);
         size++;
     }
 
@@ -119,26 +185,37 @@ public:
         size--;
     }
 
+
+
+
+
     //					Methods:
     void print()const
     {
-        Element* Temp = Head;	//Temp - это итератор
-        //Итератор - это указатель, при помощи которого можно получить доступ
-        //к элементам структуры данных
-        while (Temp)
-        {
+        //Element* Temp = Head;	//Temp - это итератор
+        ////Итератор - это указатель, при помощи которого можно получить доступ
+        ////к элементам структуры данных
+        //while (Temp)
+        //{
+        //    std::cout << Temp << tab << Temp->Data << tab << Temp->pNext << std::endl;
+        //    Temp = Temp->pNext;	//Переход на следующий элемент
+        //}
+        for(Element *Temp=Head;Temp;Temp=Temp->pNext)
             std::cout << Temp << tab << Temp->Data << tab << Temp->pNext << std::endl;
-            Temp = Temp->pNext;	//Переход на следующий элемент
-        }
         std::cout << "Количество элементов списка:" << size << std::endl;
         std::cout << "Общее количество элементов: " << Element::count << std::endl;
     }
 };
 
+//#define BASE_CHECK
+//#define BASE_FOREACH
 
 int main()
 {
     setlocale(LC_ALL, "Rus");
+
+#ifdef BASE_CHECK
+
     int n;
     std::cout << "Введите размер списка: "; std::cin >> n;
     ForwardList list;
@@ -161,8 +238,35 @@ int main()
     list2.push_back(3);
     list2.push_back(5);
     list2.push_back(8);
+
     list2.print();
+#endif // BASE_CHECK
 
+    int arr[] = { 3,5,8,12,21 };
 
+   
+
+   /* for (int i = 0; i < sizeof(arr) / sizeof (int); i++)
+    {
+        std::cout << arr[i] << "\t";
+    }*/
+#ifdef BASE_FOREACH
+    int arr[] = { 3,5,8,12,21 };
+    for (int i : arr)
+    {
+        std::cout << i << tab;
+    }
+    std::cout << std::endl;
+
+#endif // BASE_FOREACH
+
+  
+    ForwardList list = { 3,4,5,12,13 };
+    list.print();
+    for (int i : list)
+    {
+        std::cout << i << tab;
+    }
+    std::cout << std::endl;
 }
 
