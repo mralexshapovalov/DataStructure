@@ -18,5 +18,13 @@
     <ClCompile Include="ForwardList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Definition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ForwardList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
