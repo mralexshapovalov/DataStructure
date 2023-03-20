@@ -3,7 +3,8 @@
 
 #include <iostream>
 #define tab "\t"
-
+#include <algorithm>    // std::reverse
+#include <vector> 
 class ForwardList;
 
 class Element
@@ -51,6 +52,12 @@ public:
     }
 
     Iterator& operator++()
+    {
+        Temp = Temp->pNext;
+        return *this;
+    }
+
+    Iterator& operator--()
     {
         Temp = Temp->pNext;
         return *this;
@@ -132,7 +139,7 @@ public:
 
         for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
             push_front(Temp->Data);
-     reverse();
+     /*reverse();*/
 
         std::cout << "CopyAssighment:\t" << this << std::endl;
        
@@ -240,10 +247,11 @@ public:
         std::cout << "Îáùåå êîëè÷åñòâî ıëåìåíòîâ: " << Element::count << std::endl;*/
     }
 
+    
     void reverse()
     {
 
-        ForwardList reverse;
+       /* ForwardList reverse;
         while (Head)
         {
             reverse.push_front(Head->Data);
@@ -251,7 +259,59 @@ public:
         }
         this->Head = reverse.Head;
         this->size = reverse.size;
-        reverse.Head = nullptr;
+        reverse.Head = nullptr;*/
+
+        /*ForwardList reverse;
+        for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+        
+            reverse.push_front(Head->Data);
+            pop_front();
+        
+        this->Head = reverse.Head;
+        this->size = reverse.size;
+        reverse.Head = nullptr;*/
+
+
+       /* ForwardList result{};
+        for (int i : *this)
+            result.push_front(i);
+        return result;*/
+
+        //std::vector<int>myvector;
+
+
+        //ForwardList revers;
+        //while (Head)
+        //    revers.push_front(Head->Data);
+
+        ///*for (int i = 0; i < 5; ++i)
+        //    myvector.push_back(i);
+
+        //std::reverse(myvector.begin(), myvector.end());
+
+        //for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it);*/
+        //    
+        //  /*  std::cout << ' ' << *it << std::endl;*/
+     //https://cplusplus.com/reference/algorithm/reverse/
+
+        std::vector<int> myvector;
+
+        ForwardList revers;
+        // set some values:
+        for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+   
+            
+            revers.push_front(Head->Data);
+        pop_front();   // 1 2 3 4 5 6 7 8 9
+
+        std::reverse(revers.begin(), revers.end());    // 9 8 7 6 5 4 3 2 1
+
+        //// print out content:
+        //std::cout << "myvector contains:";
+        //for (std::vector<int>::iterator it = revers.begin(); it != revers.end(); ++it)
+        //    std::cout << ' ' << *it;
+        //std::cout << '\n';
+  
     }
 
 
@@ -360,11 +420,19 @@ int main()
     std::cout << std::endl;
   
     ForwardList list2 = { 34, 55, 89 };
-
     for (int i : list2)std::cout << i << tab; std::cout << std::endl;
 
+    std::cout << "ÂÛÏÎËÍßÅÒÑß ÑËÎÆÅÍÈÅ _____________________________________________________________";
     ForwardList list3 = list + list2;
     list3.print();
     for (int i : list3)std::cout << i << tab; std::cout << std::endl;
+
+    std::cout << "ÂÛÏÎËÍßÅÒÑß REVERSE _____________________________________________________________";
+    ForwardList list4 = { 3, 5, 8, 13, 21 };
+    list4.reverse();
+    list4.print();
+   /* for (int i : list4)std::cout << i << tab; std::cout << std::endl;*/
+    
+
 }
 
