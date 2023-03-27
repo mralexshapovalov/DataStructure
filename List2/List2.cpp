@@ -470,27 +470,37 @@ public :
 
 	}
 
-	void earse(int Index)
+	void erase(int index)
 	{
 	
-		if (!(Index)) return pop_front();
-		if (Index == size - 1) return pop_back();
-		if (Index >= size) return;
+		if (index==0) 
+			return pop_front();
+		if (index == size - 1) 
+			return pop_back();
+		if (index >= size)
+			return; 
 		
-		
+
 		Element* Temp;
-		if (Index <= size / 2)
+
+		if (index < size / 2)
 		{
 			Temp = Head;
-			for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+			for (int i = 0; i < index; i++) Temp = Temp->pNext;
 		}
 		else
 		{
 			Temp = Tail;
-			for (int i = 0; i < size - Index - 1; i++) Temp = Temp->pPrev;
+			for (int i = 0; i < size - index - 1; i++) Temp = Temp->pPrev;
 		}
-		Temp->pPrev->pNext = Temp->pNext;
-		Temp->pNext->pPrev = Temp->pPrev;
+		
+		Element* Temp;
+
+		Temp->pPrev->pNext = Temp->pNext; 
+		Temp->pNext->pPrev = Temp->pPrev; 
+
+		//В указатель pNext(pPrev) элемент Temp->pPrev(Temp->pNext->pPrev) записывает адрес элемента Temp->pNext(Temp->pPrev)
+
 		delete Temp;
 		
 		size--;
@@ -503,7 +513,7 @@ void print(const List& list)
 {
 	
 	/*List::ConstIterator it;
-	for (int i : list)
+	for (int i : it= list.cbegin())
 	{
 		std::cout << i << tab << std::endl;
 	}
@@ -520,7 +530,7 @@ void print(const List& list)
 
 void  reverse_print(const List&  list)
 {
-	/*List::ConstIterator rit;*/
+
 	for (List::ConstReverseIterator rit = list.crbegin(); rit != list.crend(); ++rit)
 	{
 		std::cout << *rit << tab;
@@ -558,6 +568,6 @@ int main()
 	//list.print();
 	print(list);
 	reverse_print(list);
-	list.earse(2);
+	list.erase(2);
 	print(list);
 }
