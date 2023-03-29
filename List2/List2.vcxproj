@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="List2.cpp" />
+    <ClCompile Include="ConstIterator.cpp" />
+    <ClCompile Include="ConstReverseIterator.cpp" />
+    <ClCompile Include="Iterator.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="ReverseIterator.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConstIterator.h" />
+    <ClInclude Include="ConstReverseIterator.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="ReverseIterator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
