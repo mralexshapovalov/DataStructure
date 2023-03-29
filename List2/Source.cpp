@@ -2,15 +2,9 @@
 //
 
 #include<iostream>
-//#include "List.h"
 #include "List.cpp"
 
-using namespace std;
-
 #define tab "\t"
-
-
-
 
 
 //#define BASE_CHECK
@@ -44,9 +38,9 @@ void main()
 	//list.print();
 	for (int i : list)
 	{
-		cout << i << tab;
+		std::cout << i << tab;
 	}
-	cout << endl;
+	std::cout << std::endl;
 
 	for (int& i : list)i *= 10;
 
@@ -55,5 +49,9 @@ void main()
 	reverse_print(list);
 
 	List<double> d_list = { 2.5, 3.14, 8.3, 4.7 };
-	for (double i : d_list)cout << i << tab; cout << endl;
+	for (double i : d_list)
+	{
+		std::cout << i << tab;
+	}
+	std::cout << std::endl;
 }

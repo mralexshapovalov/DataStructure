@@ -3,7 +3,6 @@
 
 template<typename T>class List
 {
-	template<typename T>
 	class Element
 	{
 		T Data;
@@ -12,37 +11,38 @@ template<typename T>class List
 
 	public:
 		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr);
-		
 		~Element();
-		
+
 		friend class List<T>;
+
 	}*Head, * Tail;
 
+	unsigned int size;
+	
 
-
-	template<typename T>
 	class ConstBaseIterator
 	{
 	protected:
 		Element* Temp;
+
 	public:
-		ConstBaseIterator(Element* Temp) :Temp(Temp) {}
-		~ConstBaseIterator() {}
+		ConstBaseIterator(Element* Temp);
+		~ConstBaseIterator();
 
 		bool operator==(const ConstBaseIterator& other)const;
 		bool operator!=(const ConstBaseIterator& other)const;
-
 		const T& operator*()const;
 	};
 
 public:
 
-
 	class ConstIterator :public ConstBaseIterator
 	{
 	public:
+
 		ConstIterator(Element* Temp = nullptr);
-		~ConstIterator(){}
+		~ConstIterator();
+		
 		ConstIterator& operator++();
 		ConstIterator operator++(int);
 		ConstIterator& operator--();
@@ -50,92 +50,68 @@ public:
 	};
 
 
-
-	template<typename T>
 	class ConstReverseIterator :public ConstBaseIterator
 	{
 	public:
+
 		ConstReverseIterator(Element* Temp = nullptr);
-	
 		~ConstReverseIterator();
 		
 		ConstReverseIterator& operator++();
-		
 		ConstReverseIterator operator++(int);
-		
 		ConstReverseIterator& operator--();
-		
 		ConstReverseIterator operator--(int);
 		
 	};
 
-	template<typename T>
 	class Iterator :public ConstIterator
 	{
 	public:
 		Iterator(Element* Temp);
 		~Iterator();
+
 		T& operator*();
 	};
 
-
-	template<typename T>
 	class ReverseIterator :public ConstReverseIterator
 	{
 	public:
 		ReverseIterator(Element* Temp);
 		~ReverseIterator();
-		T& operator*();
 		
+		T& operator*();
 	};
 
 	ConstIterator cbegin()const;
-	
 	ConstIterator cend()const;
-	
+
 	ConstIterator begin()const;
-	
 	ConstIterator end()const;
-	
+
 	Iterator begin();
-	
 	Iterator end();
 	
-
 	ConstReverseIterator crbegin()const;
-	
 	ConstReverseIterator crend()const;
 	
 	ReverseIterator rbegin();
-	
 	ReverseIterator rend();
 	
-
 	List();
-	
 	List(const std::initializer_list<T>& il);
-	
 	~List();
 	
-
 	//					Adding elements:
 	void push_front(T Data);
-	
 	void push_back(T Data);
-	
 	void insert(int Index, T Data);
-	
-
 	//				Removing elements:
 	void pop_front();
-
 	void pop_back();
 
 	//				Methods:
 	void print()const;
-	
 	void reverse_print()const;
-	
 };
 
 template<typename T>void print(const List<T>& list);
