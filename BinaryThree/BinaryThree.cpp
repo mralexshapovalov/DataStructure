@@ -1,7 +1,4 @@
-﻿// BinaryThree.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+﻿#include <iostream>
 
 class Three
 {
@@ -15,11 +12,11 @@ protected:
 
 	public:
 
-		
+
 
 		Element(int Data, Element* pLeft = nullptr, Element* pRight = nullptr) :Data(Data), pLeft(pLeft), pRight(pRight)
 		{
-				/*std::cout << "EConstructor:\t" << this << std::endl;*/
+			/*std::cout << "EConstructor:\t" << this << std::endl;*/
 		}
 
 		~Element()
@@ -28,7 +25,7 @@ protected:
 				/*std::cout << "EDestructor:\t" << this << std::endl;*/
 			}
 		}
-		
+
 
 		friend class Three;
 		friend class UniqueTree;
@@ -47,10 +44,11 @@ public:
 	}
 	~Three()
 	{
+		clear(Root);
 		std::cout << "TDestructor" << this << std::endl;
 	}
 
-	void insert(int Data,Element *Root)
+	void insert(int Data, Element* Root)
 	{
 		if (this->Root == nullptr)this->Root = new Element(Data);
 		if (Root == nullptr) return;
@@ -62,18 +60,18 @@ public:
 		}
 		else
 		{
-			if(Root->pRight== nullptr)Root->pRight = new Element(Data);
+			if (Root->pRight == nullptr)Root->pRight = new Element(Data);
 			else insert(Data, Root->pRight);
 		}
 	}
 
 	int minValue(Element* Root)const
 	{
-		
+
 		/*if (Root == nullptr) return 0;
 		if (Root->pLeft == nullptr)return Root->Data;
 		return minValue(Root->pLeft);*/
-		
+
 		if (Root == nullptr) return 0;
 		/* if (Root->pLeft == nullptr)return Root->Data;
 		 return minValue(Root->pLeft);*/
@@ -85,11 +83,11 @@ public:
 	{
 		if (Root == nullptr) return 0;
 
-		return Root->pRight  ? maxValue(Root->pRight):Root->Data;
+		return Root->pRight ? maxValue(Root->pRight) : Root->Data;
 	}
 
 
-	void print(Element *Root)const
+	void print(Element* Root)const
 	{
 		if (Root == nullptr)return;
 		print(Root->pLeft);
@@ -98,6 +96,20 @@ public:
 
 
 	}
+
+	void clear()
+	{
+		clear(Root);
+		Root = nullptr;
+	}
+
+	int Depth()const
+	{
+		return Depth(Root);
+	}
+
+	
+
 
 	int Count(Element* Root)
 	{
@@ -115,6 +127,40 @@ public:
 	{
 
 		return (double)Sum(Root) / Count(Root);
+	}
+
+	void clear(Element* Root)
+	{
+		if (Root == nullptr)return;
+		clear(Root->pLeft);
+		clear(Root->pRight);
+		delete Root;
+	}
+
+	int Depth(Element* Root)const
+	{
+	
+		if (Root == nullptr) return 0; 
+		
+
+			int leftDepth = Depth(Root->pLeft);
+			int rightDepth = Depth(Root->pRight);
+
+			if (leftDepth <= rightDepth)
+			{
+	
+				return rightDepth+1;
+			}
+
+			else 
+			{
+		
+				return leftDepth + 1;
+
+			}
+		
+
+	
 	}
 
 };
@@ -135,7 +181,7 @@ public:
 			if (Root->pLeft == nullptr)Root->pLeft = new Element(Data);
 			else insert(Data, Root->pLeft);
 		}
-		else if(Data>Root->Data)
+		else if (Data > Root->Data)
 		{
 			if (Root->pRight == nullptr)Root->pRight = new Element(Data);
 			else insert(Data, Root->pRight);
@@ -151,7 +197,7 @@ int main()
 
 	for (int i = 0; i < n; i++)
 	{
-		three.insert(rand() % 100, three.getRoot());
+		three.insert(rand() % 47, three.getRoot());
 	}
 	three.print(three.getRoot());
 
@@ -170,5 +216,11 @@ int main()
 	std::cout << "Values2 :" << three2.Count(three2.getRoot()) << std::endl;
 	std::cout << "Sum :" << three.Sum(three.getRoot()) << std::endl;
 	std::cout << "Avg :" << three.Avg() << std::endl;
-}
+	std::cout << "Depth :" << three.Depth() << std::endl;
 
+	three.print(three.getRoot());
+
+	std::cout <<"\n" << "CLEAR" << std::endl;
+	three.clear();
+	three.print(three.getRoot());
+}
