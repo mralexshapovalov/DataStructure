@@ -91,6 +91,8 @@ public:
 		print(Root->pLeft);
 		std::cout << Root->Data << "\t";
 		print(Root->pRight);
+
+
 	}
 
 	void clear()
@@ -122,6 +124,7 @@ public:
 		return (double)Sum(Root) / Count(Root);
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
 	void clear(Element* Root)
 	{
 		if (Root == nullptr)return;
