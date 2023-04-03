@@ -12,8 +12,6 @@ protected:
 
 	public:
 
-
-
 		Element(int Data, Element* pLeft = nullptr, Element* pRight = nullptr) :Data(Data), pLeft(pLeft), pRight(pRight)
 		{
 			/*std::cout << "EConstructor:\t" << this << std::endl;*/
@@ -25,7 +23,6 @@ protected:
 				/*std::cout << "EDestructor:\t" << this << std::endl;*/
 			}
 		}
-
 
 		friend class Three;
 		friend class UniqueTree;
@@ -42,6 +39,7 @@ public:
 	{
 		std::cout << "TConstructor" << this << std::endl;
 	}
+
 	~Three()
 	{
 		clear(Root);
@@ -93,8 +91,6 @@ public:
 		print(Root->pLeft);
 		std::cout << Root->Data << "\t";
 		print(Root->pRight);
-
-
 	}
 
 	void clear()
@@ -107,9 +103,6 @@ public:
 	{
 		return Depth(Root);
 	}
-
-	
-
 
 	int Count(Element* Root)
 	{
@@ -139,32 +132,22 @@ public:
 
 	int Depth(Element* Root)const
 	{
-	
-		if (Root == nullptr) return 0; 
-		
+		if (Root == nullptr) return 0;
 
-			int leftDepth = Depth(Root->pLeft);
-			int rightDepth = Depth(Root->pRight);
+		int leftDepth = Depth(Root->pLeft);
+		int rightDepth = Depth(Root->pRight);
 
-			if (leftDepth <= rightDepth)
-			{
-	
-				return rightDepth+1;
-			}
+		if (leftDepth <= rightDepth)
+		{
+			return rightDepth+1;
+		}
 
-			else 
-			{
-		
-				return leftDepth + 1;
-
-			}
-		
-
-	
+		else
+		{
+			return leftDepth+1;
+		}
 	}
-
 };
-
 
 class UniqueTree :public Three
 {
@@ -181,6 +164,7 @@ public:
 			if (Root->pLeft == nullptr)Root->pLeft = new Element(Data);
 			else insert(Data, Root->pLeft);
 		}
+
 		else if (Data > Root->Data)
 		{
 			if (Root->pRight == nullptr)Root->pRight = new Element(Data);
@@ -220,7 +204,7 @@ int main()
 
 	three.print(three.getRoot());
 
-	std::cout <<"\n" << "CLEAR" << std::endl;
+	std::cout << "\n" << "CLEAR" << std::endl;
 	three.clear();
 	three.print(three.getRoot());
 }
