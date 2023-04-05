@@ -25,6 +25,11 @@ protected:
 				/*std::cout << "EDestructor:\t" << this << std::endl;*/
 			}
 		}
+		bool isLeaf()const
+		{
+
+			return pLeft == pRight;
+		}
 
 		friend class Three;
 		friend class UniqueTree;
@@ -119,6 +124,11 @@ public:
 
 	}
 
+	void Erase(int Data)
+	{
+		Erase(Data, Root);
+	}
+
 private:
 
 	void insert(int Data, Element* Root)
@@ -178,7 +188,35 @@ private:
 		if (Root == nullptr)return 0;
 		else return  Sum(Root->pLeft) + Sum(Root->pRight) + Root->Data;
 	}
+	void Erase(int Data, Element*& Root)
+	{
+		if (Root == nullptr)return;
+		Erase(Data, Root->pLeft);
+		Erase(Data, Root->pRight);
+		if (Data == Root->Data)
+		{
+			if (Root->isLeaf())
+			{
+				delete Root;
+				Root = nullptr;
+			}
+			else
+			{
+				if (Count(Root->pLeft) > Count(Root->pRight))
+				{
+					Root->Data = maxValue(Root->pLeft);
+					Erase(maxValue(Root->pLeft), Root->pLeft);
+				}
+				else
+				{
+					Root->Data = minValue(Root->pRight);
+					Erase(minValue(Root->pRight), Root->pRight);
+				}
+			}
+		}
 
+
+	}
 	
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -318,8 +356,13 @@ int main()
 	std::cout << "Depth: " << three.Depth() << std::endl;
 #endif // DEPTH_CHECK
 
-	Three three2 = three;
-	three2.Print();
+	int value;
+	std::cin >> value;
+	three.Erase(value);
+
+	three.Print();
+	/*Three three2 = three;
+	three2.Print();*/
 
 
 }
