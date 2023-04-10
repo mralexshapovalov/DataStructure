@@ -38,7 +38,6 @@ int main()
 		switch (value)
 		{
 		case 0:
-
 			std::cout << "Введите размер списка :"; std::cin >> size;
 			for (int i = 0; i < size; i++)
 			{
@@ -46,17 +45,12 @@ int main()
 			}
 			for (int i : forwardList)std::cout << i << tab; std::cout << std::endl;
 			std::cout << "Добавлены значения в кол-ве : " << size << std::endl;
-
 			break;
-
 		case 1:
-
 			std::cout << "Введите значение :"; std::cin >> value;
 			forwardList.push_front(value);
 			std::cout << "Значенипе добавлено\n";
-
 			break;
-
 		default:
 
 			if (forwardList.empty() == true)
@@ -68,7 +62,6 @@ int main()
 				switch (value)
 				{
 				case 2:
-
 					forwardList.sort(); //greather строги	 общий порядок
 					for (std::forward_list<int>::iterator it = forwardList.begin(); it != forwardList.end(); ++it)
 					{
@@ -76,22 +69,16 @@ int main()
 					}
 					std::cout << std::endl;
 					break;
-
 				case 3:
-
 					forwardList.pop_front();
 					std::cout << "Первый элемент был удален" << std::endl;
 					std::cout << std::endl;
 					break;
-
 				case 4:
-
 					forwardList.clear();
 					std::cout << "Список пуст" << std::endl;
 					break;
-
 				case 5:
-
 					for (std::forward_list<int>::iterator it = forwardList.begin(); it != forwardList.end(); ++it)
 					{
 						std::cout << *it << tab;
@@ -107,16 +94,13 @@ int main()
 					}
 					std::cout << std::endl;
 					break;
-
 				case 6:
-
 					for (std::forward_list<int>::iterator it = forwardList.begin(); it != forwardList.end(); ++it)
 					{
 						std::cout << *it << tab;
 					}
 					std::cout << std::endl;
 					break;
-
 				default:
 					std::cout << "Ошибка!Неправильно выбрана цифра.Повторите снова\n";
 					break;
