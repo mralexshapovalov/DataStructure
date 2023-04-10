@@ -16,42 +16,62 @@
 int main()
 {
 
+	setlocale(LC_ALL, "");
 
-
-	std::string a;
-	std::cin >> a;
-
-	std::map<std::string, std::string> myMap;
-
-	myMap.emplace(a, "вызов");
-	myMap.emplace(a, "Cvfsf");
-
-	//auto it = myMap.find(a);
-
-
-	//std::cout << it->second << std::endl;
-
-
-
-	std::cout << myMap[a] << std::endl;
-
-
-	std::multimap<int, std::string> week =
+	std::string enterTheWord;
+	std::multimap<std::string, std::string> dictionary =
 	{
-		std::pair<int, std::string>(0, "Sunday"),
-		std::pair<int, std::string>(1, "Monday"),
-		std::pair<int, std::string>(2, "Tuesday"),
-		{3, "Wednesday"},
-		{4, "Thursday"},
-		{5, "Friday"},
-		{6, "Saturday"},
-		{7, "Sunday"},
-		{7, "Sunday"},
-		{7, "Sunday"},
+		{"Moon","Луна"},
+		{"Moon","Спутник"},
+		{"Moon","Лунный месяц"},
+		{"Jabber","Болтовня"},
+		{"Jabber","Трескотня"},
+		{"Jabber","Бормотание"},
+		{"Space", "Пробел"},
+		{"Space", "Пространство"},
+		{"Space", "Космос"},
+		{"Set", "Задать"},
+		{"Set", "Установить"},
+		{"Set", "Набор"},
+		{"Call", "Звонок"},
+		{"Call", "Вызвать"},
+		{"Call", "Назвать"}
+		
 	};
-	for (std::map<int, std::string>::iterator it = week.begin(); it != week.end(); ++it)
+
+	while (true)
 	{
-		std:: cout << it->first << " - " << it->second << std::endl;
+		std::cout << "Список слов в словаре:" << std::endl;
+
+		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+		{
+			std::cout << it->first << std::endl;
+			if (it->first == (++it)->first) ++it;
+		}
+		std::cout << std::endl;
+
+		
+		std::cout << "Введите слово: "; std::cin >> enterTheWord;
+		std::cout << std::endl;
+
+		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+		{
+			if (it->first == enterTheWord)
+			{
+				std::cout << it->first << " - " << it->second << std::endl;
+			}
+		}
+			
+		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+		{
+			
+		}
+		
+
+
+		std::cout << std::endl;
 	}
+
+
 }
 
