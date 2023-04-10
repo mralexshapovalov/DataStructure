@@ -15,7 +15,6 @@
 
 int main()
 {
-
 	setlocale(LC_ALL, "");
 
 	std::string enterTheWord;
@@ -36,21 +35,19 @@ int main()
 		{"Call", "Звонок"},
 		{"Call", "Вызвать"},
 		{"Call", "Назвать"}
-		
+
 	};
 
 	while (true)
 	{
 		std::cout << "Список слов в словаре:" << std::endl;
 
-		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(), end = dictionary.end(); it != end; it = dictionary.upper_bound(it->first))
 		{
 			std::cout << it->first << std::endl;
-			if (it->first == (++it)->first) ++it;
 		}
 		std::cout << std::endl;
 
-		
 		std::cout << "Введите слово: "; std::cin >> enterTheWord;
 		std::cout << std::endl;
 
@@ -61,14 +58,6 @@ int main()
 				std::cout << it->first << " - " << it->second << std::endl;
 			}
 		}
-			
-		for (std::multimap<std::string, std::string>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
-		{
-			
-		}
-		
-
-
 		std::cout << std::endl;
 	}
 
